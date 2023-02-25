@@ -1,0 +1,12 @@
+<h1>Task List</h1>
+
+<%# We need an unordered list of tasks %>
+
+<ul>
+  <% @tasks.each do |task| %>
+  <%# this line must reference the @tasks defined in the controller %>
+    <li><%= link_to task.title, task_path(task) %></li>
+    <%# link_to text, url. text = the title of the task, url is a path to the placeholder value = task %>
+    <%# Call method title on placeholder task, i.e each task within the array of tasks %>
+  <% end  %>
+</ul>
