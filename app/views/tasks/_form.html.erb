@@ -1,0 +1,11 @@
+<%= form_for(task) do |f| %>
+<%# Never have instance variables in partials! = task not @task %>
+<%# must be form_for, for this exercise %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :details %>
+  <%= f.text_area :details %>
+  <%= f.label :completed %>
+  <%= f.check_box :completed %>
+  <%= f.submit %>
+<% end %>

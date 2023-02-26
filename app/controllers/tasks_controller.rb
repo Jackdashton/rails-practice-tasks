@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+
+  before_action :set_task, only: [:update, :destroy]
+
   def index
     @tasks = Task.all
   end
@@ -27,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id]) - don't need anymore as it is in set_task
     @task.update(task_params)
     # No need for app/views/tasks/update.html.erb
     redirect_to task_path(@task)
@@ -35,10 +38,10 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id]) - don't need anymore as it is in set_task
     @task.destroy
+    # No need for app/views/tasks/destroy.html.erb
     redirect_to tasks_path, status: :see_other
-    # see_other responds to HTTP status code - redirection.
   end
 
   private
@@ -46,5 +49,10 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :details, :completed)
     # only these 3 params are permitted
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+    # Instead of running this in each method, we run it before with a filter called before_action
   end
 end
